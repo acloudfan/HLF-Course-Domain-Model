@@ -1,0 +1,48 @@
+namespace  org.acme.airline.participant
+
+abstract participant ACMEParticipant identified by participantKey {
+  o String          participantKey
+  o Contact         contact
+}
+
+concept Contact {
+  o String fName
+  o String lname
+  o String email
+}
+
+participant ACMENetworkAdmin extends ACMEParticipant {
+  /** This is a concrete resource definition */
+}
+
+participant ACMEPersonnel extends ACMEParticipant {
+  o String  department
+}
+
+participant B2BPartner extends ACMEParticipant {
+  /** Additional Attributes */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Exercise-1
+ * Create a copy of v2 and call it v21
+ * In the 
+ */

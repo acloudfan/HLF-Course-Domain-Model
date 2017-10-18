@@ -1,0 +1,13 @@
+namespace org.acme.airline.flight
+
+asset Flight identified by flightNumber {
+  o   String            flightNumber
+  o   Route             route
+  o   String[]          aliasFlightNumber
+}
+
+concept Route {
+  o   String    origin
+  o   String    destination
+  o   DateTime  schedule  
+}
