@@ -45,29 +45,17 @@ event FlightCreated {
 
 
 
-
-/**
- * Emitted every time a new flight is scheduled/created
- * Subscriber will receive the flight code that they can use
- * to access the Flight resource on the network
- */
-// event FlightCreated {
-//   o   String    flightId
-// }
-
-
 /** Data for testing **
-
-> composer archive create -a dist/airlinev6.bna --sourceType dir --sourceName .
 
 {
   "$class": "org.acme.airline.flight.Flight",
-  "flightNumber": "AE101-05-26-18",
+  "flightNumber": "AE101",
+  "flightId": "AE101-05-27-18",
   "route": {
     "$class": "org.acme.airline.flight.Route",
     "origin": "EWR",
     "destination": "SEA",
-    "schedule": "2017-10-15T21:44:38.666Z"
+    "schedule": "2017-10-15T21:44Z"
   },
   "aliasFlightNumber": ["BU456"]
 }
@@ -75,10 +63,11 @@ event FlightCreated {
 
 /*
 
-transaction CreateFlight {
-  o   String      flightNumber
-  o   String      origin
-  o   String      destination
-  o   DateTime    schedule
+{
+  "$class": "org.acme.airline.flight.CreateFlight",
+  "flightNumber": "AE101",
+  "origin": "EWR",
+  "destination": "HOU",
+  "schedule": "2018-05-04T19:10:54.886Z"
 }
 */

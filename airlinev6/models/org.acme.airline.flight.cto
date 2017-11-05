@@ -20,7 +20,8 @@ concept Route {
 
 /** Data for testing **
 
-> composer archive create -a dist/airlinev6.bna --sourceType dir --sourceName .
+> cd dist
+> composer archive create  --sourceType dir --sourceName ../
 
 {
   "$class": "org.acme.airline.flight.Flight",

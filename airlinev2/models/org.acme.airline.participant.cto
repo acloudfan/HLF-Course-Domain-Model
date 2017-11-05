@@ -6,7 +6,7 @@ abstract participant ACMEParticipant identified by participantKey {
 }
 
 concept Contact {
-  o String fName
+  o String fname
   o String lname
   o String email
 }
@@ -42,7 +42,19 @@ participant B2BPartner extends ACMEParticipant {
 
 
 /**
- * Exercise-1
- * Create a copy of v2 and call it v21
- * In the 
+ * Test Data
+
+{
+  "$class": "org.acme.airline.participant.ACMEPersonnel",
+  "participantKey": "john",
+
+  "contact": {
+    "fname": "John",
+    "lname": "Doe",
+    "email": "john@doe.com"
+    },
+
+  "department": "Logistics"
+}
+
  */

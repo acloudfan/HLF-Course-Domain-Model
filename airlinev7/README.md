@@ -4,4 +4,5 @@
 
 Refer to lecture on Transactions & Events
 
-composer archive create -a dist/airlinev7.bna --sourceType dir --sourceName .
+cd dist
+composer archive create  --sourceType dir --sourceName ../

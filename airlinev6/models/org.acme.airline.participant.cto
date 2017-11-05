@@ -40,9 +40,3 @@ participant B2BPartner extends ACMEParticipant {
 
 
 
-
-/**
- * Exercise-1
- * Create a copy of v2 and call it v21
- * In the 
- */
