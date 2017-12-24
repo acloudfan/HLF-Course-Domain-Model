@@ -1,4 +1,10 @@
-node_modiles
+node_modules
 composer-logs
-*/composer-logs
-
+temp
+npm-debug*
+*.card
+*.bna
+*.crt
+*.key
+*_sk
+*.pem

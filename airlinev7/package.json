@@ -1,6 +1,6 @@
 {
   "name": "airlinev7",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Incremental creation of the ACME model",
   "scripts": {
     "test": "mocha --recursive"
