@@ -41,11 +41,6 @@ event FlightCreated {
 
 
 
-
-
-
-
-
 /**
  * Emitted every time a new flight is scheduled/created
  * Subscriber will receive the flight code that they can use

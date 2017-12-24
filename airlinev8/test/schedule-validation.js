@@ -64,6 +64,7 @@ describe('Transaction # CreateFlight Add Valid', () => {
     });
 
     // Test Case # 2
+    
     it('should throw exception if schedule is past date', () => {
        
         // Get the factory using the BN Definition
