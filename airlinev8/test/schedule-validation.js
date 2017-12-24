@@ -64,7 +64,7 @@ describe('Transaction # CreateFlight Add Valid', () => {
     });
 
     // Test Case # 2
-    
+
     it('should throw exception if schedule is past date', () => {
        
         // Get the factory using the BN Definition
@@ -83,7 +83,7 @@ describe('Transaction # CreateFlight Add Valid', () => {
 
             // If it comes here then the test case failed
             assert(false, "should have thrown an error");
-            console.log('okj')
+            
         }).catch((error)=>{
             console.log(error);
 
