@@ -15,6 +15,20 @@ http://ACloudFan.com
 * airlinev4
   Extends the model to define the relationship between Flight and the aircraft
 
+* airlinev5
+  Shows how field level validations are created
+
+* airlinev6
+  Unique identity requirement for assets and participants. Provides the solution to the exercise.
+  
+* airlinev7
+
+* airlinev8
+  Shows how to
+  - Write Test cases
+  - Use the embedded runtime for testing
+  - Error handling in TP functions
+
 
 toolbox docker
 https://developer.ibm.com/opentech/2016/07/21/running-hyperledger-fabric-natively-on-windows/
