@@ -30,9 +30,19 @@ event FlightCreated {
   o   String      flightId
 }
 
+// Assigns an aircraft to the flight
+// The logistics / validation on availability of aircraft
+// Kept outside of the Blockchain
+transaction AssignAircraft {
+  o   String    flightId
+  o   String    aircraftId
+}
 
-
-
+// Event indicating that aircraft was assigned
+event AircraftAssigned {
+  o   String    flightId
+  o   String    aircraftId
+}
 
 
 

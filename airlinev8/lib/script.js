@@ -26,10 +26,13 @@ function    createFlight(flightData) {
     }
 
     // Get the Asset Registry
+
     return getAssetRegistry('org.acme.airline.flight.Flight')
+    
         .then(function(flightRegistry){
-            // Now add the Flight
+            // Now add the Flight - global function getFactory() called
             var  factory = getFactory();
+
             var  NS =  'org.acme.airline.flight';
 
             // Solution to exercise - Removed hardcoded value & invoked
@@ -81,4 +84,33 @@ function generateFlightId(flightNum, schedule){
     // console.log(dayNum,month,dt.getFullYear())
 
     return flightNum+'-'+month+'-'+dayNum+'-'+(dt.getFullYear()+'').substring(2,4);
+}
+
+/**
+ * Create Flight Transaction
+ * @param {org.acme.airline.flight.AssignAircraft} flightAircraftData
+ * @transaction
+ * 
+ * **/
+function    AssignAircraft(flightAircraftData){
+    var flightRegistry={}
+    return getAssetRegistry('org.acme.airline.flight.Flight').then(function(registry){
+        flightRegistry = registry
+        return flightRegistry.get(flightAircraftData.flightId);
+    }).then(function(flight){
+        if(!flight) throw new Error("Flight : "+flightAircraftData.flightId," Not Found!!!");
+        var   factory = getFactory();
+        var   relationship = factory.newRelationship('org.acme.airline.aircraft','Aircraft',flightAircraftData.aircraftId);
+        flight.aircraft = relationship;
+        return flightRegistry.update(flight);
+    }).then(function(){
+        // Successful update
+        var event = getFactory().newEvent('org.acme.airline.flight', 'AircraftAssigned');
+        event.flightId = flightAircraftData.flightId;
+        event.aircraftId = flightAircraftData.aircraftId;
+        emit(event);
+    }).catch(function(error){
+        throw new Error(error);
+    });
+
 }

@@ -33,7 +33,7 @@ const assetName = 'Flight';
 const transactionName = 'CreateFlight';
 
 // Test Suite # 1
-describe('Transaction # CreateFlight Add Valid', () => {
+describe('Transaction # CreateFlight Add Validate', () => {
 
     // Test Case # 1
     it('should create & retrieve 1 Flight instance', () => {
