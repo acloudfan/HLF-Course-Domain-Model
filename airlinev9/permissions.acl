@@ -1,0 +1,34 @@
+
+// #1 Allow the 'System Network Admin' to carry out CRUD on all system resources
+rule NetworkControlPermission {
+  description:  "give admin ALL access to system resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.*"
+  action: ALLOW  
+}
+rule ParticipantRegistryControlPermission {
+  description:  "give admin ALL access to system resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.ParticipantRegistry"
+  action: ALLOW  
+}
+// #2 Allow the user 'System Network Admin' to carry out CRUD on all org.acme.airline resources
+rule AcmeNetworkControlPermission {
+  description: "give admin ALL access to ACME resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.acme.airline.**"
+  action: ALLOW  
+}
+
+// #3 ACMENetworkAdmin Participant can carry out ALL operations on ACME resources 
+// but NOT the system resources
+rule AcmeNetworkAdminPermission {
+  description: "networkControl can access network commands"
+  participant: "org.acme.airline.participant.ACMENetworkAdmin"
+  operation: ALL
+  resource: "org.acme.airline.**"
+  action: ALLOW  
+}

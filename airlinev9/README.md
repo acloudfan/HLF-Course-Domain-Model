@@ -1,27 +1,54 @@
 # org.acme.airline
 
-# Airline v8
+# Airline v9
 
-Refer to lecture on Transactions & Events
+https://hyperledger.github.io/composer/reference/acl_language.html
 
-composer archive create -a dist/airlinev7.bna --sourceType dir --sourceName .
-
-
-composer network deploy -a airlinev7@0.0.1.bna -p basicnw -i user2 -s secret
-
-https://stackoverflow.com/questions/46299853/connecting-hyperledger-composer-to-fabric
-
-composer identity import -u admin -c Admin@org1.acme.com-cert.pem -k 36e6cdc500b27254f88b5f0672673f32b07b381de9b871f4acc445a5afaf0d66_sk
-
-composer runtime install -i admin -s adminpw -p basicnw -n airlinev7
-
-composer deploy -i admin -s adminpw -p basicnw -a airlinev8.bna
-
-  composer network ping -n airlinev1 -p basicnw -i admin -s adminpw
-  composer network list -n airlinev1 -p basicnw -i admin -s adminpw
-
-composer-rest-server -p basicnw -n  airlinev1 -i admin -s adminpw -N always -w false
+Refer to lecture on Access Control Language
 
 
-https://hyperledger.github.io/composer/reference/commands.html
+#1 Create the BNA archive
+composer archive create  --sourceType dir --sourceName ../
 
+#2 Deploy the archive to runtime
+composer network deploy -a ./airlinev9@0.0.1.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
+
+admin>> org.hyperledger.composer.system.NetworkAdmin#admin
+
+#3 DO NOT - Import the card
+composer card delete -n admin@airlinev9
+composer card import -f admin@airlinev9.card
+
+#4 Add a new participants
+
+- John Doe (johnd) is the Network Administrator
+composer participant add -d '{"$class":"org.acme.airline.participant.ACMENetworkAdmin","participantKey":"johnd","contact":{"$class":"org.acme.airline.participant.Contact","fName":"John","lname":"Doe","email":"john.doe@acmeairline.com"}}' -c admin@airlinev9
+
+- Will Smith (wills) works in the Logistics department
+composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"wills","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Will","lname":"Smith","email":"will.smith@acmeairline.com"}, "department":"Logistics"}' -c admin@airlinev9
+
+#5 Issue the identities
+composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmin#johnd -c admin@airlinev9 -x
+
+composer card import -f johnd@airlinev9.card
+
+composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c johnd@airlinev9 
+
+composer card import -f wills@airlinev9.card
+
+#6 Ping BNA using the johnd & wills cards
+    - composer network ping -c johnd@airlinev9
+    - composer network ping -c wills@airlinev9
+
+#6 Setup the permissions.acl
+    - johnd     Is the Network Administrator for airlinev9
+                Should be able to execute network commands
+
+    - wills     Works for the Logistics department
+                Should NOT be able to execute any network command
+
+#7 Rebuild the archive
+composer archive create  --sourceType dir --sourceName ../
+
+#8 Update the Network
+composer network update -a ./airlinev9@0.0.1.bna -c admin@airlinev9
