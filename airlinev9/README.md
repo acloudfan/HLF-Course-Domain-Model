@@ -28,11 +28,12 @@ composer participant add -d '{"$class":"org.acme.airline.participant.ACMENetwork
 composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"wills","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Will","lname":"Smith","email":"will.smith@acmeairline.com"}, "department":"Logistics"}' -c admin@airlinev9
 
 #5 Issue the identities
-composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmin#johnd -c admin@airlinev9 -x
+composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmin#johnd -c admin@airlinev9
 
+composer card delete -n johnd@airlinev9
 composer card import -f johnd@airlinev9.card
 
-composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c johnd@airlinev9 
+composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c admin@airlinev9 
 
 composer card import -f wills@airlinev9.card
 
@@ -52,3 +53,6 @@ composer archive create  --sourceType dir --sourceName ../
 
 #8 Update the Network
 composer network update -a ./airlinev9@0.0.1.bna -c admin@airlinev9
+
+
+composer-rest-server -c johnd@airlinev9 -n always -w true
