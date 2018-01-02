@@ -35,6 +35,7 @@ composer card import -f johnd@airlinev9.card
 
 composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c admin@airlinev9 
 
+composer card delete -n wills@airlinev9
 composer card import -f wills@airlinev9.card
 
 #6 Ping BNA using the johnd & wills cards

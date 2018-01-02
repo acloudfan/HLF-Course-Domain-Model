@@ -1,5 +1,6 @@
 
-// #1 Allow the 'System Network Admin' to carry out CRUD on all system resources
+// #1 Allow the 'System Network Admin' to carry out Identities management
+//    and Network operations
 rule NetworkControlPermission {
   description:  "give admin ALL access to system resources"
   participant: "org.hyperledger.composer.system.NetworkAdmin"
@@ -8,7 +9,7 @@ rule NetworkControlPermission {
   action: ALLOW  
 }
 rule ParticipantRegistryControlPermission {
-  description:  "give admin ALL access to system resources"
+  description:  "give admin ALL access to ACME participant types"
   participant: "org.hyperledger.composer.system.NetworkAdmin"
   operation: ALL
   resource: "org.acme.airline.participant.*"
@@ -16,21 +17,52 @@ rule ParticipantRegistryControlPermission {
 }
 
 
-// #3 ACMENetworkAdmin Participant can carry out ALL operations on ACME resources 
-// but NOT the system resources
+
+
+
+
+
+
+
+
+
+
+
+// #2 ACMENetworkAdmin Participant can carry out ALL operations on ACME resources 
+//    READ the system resources  
+//    "org.acme.airline.participant.ACMENetworkAdmin"
 rule AcmeNetworkAdminPermissionSystem {
-  description: "networkControl can access network commands"
-  participant: "org.acme.airline.participant.ACMENetworkAdmin"
-  operation: ALL
+  description: "can READ the system registries"
+  participant: "ANY"
+  operation: READ
   resource: "org.hyperledger.composer.system.**"
   action: ALLOW  
 }
 
-rule AcmeNetworkAdminPermissionAcme {
-  description: "networkControl can access network commands"
-  participant: "org.acme.airline.participant.ACMENetworkAdmin"
-  operation: ALL
-   resource: "org.acme.airline.**"
+// Needed for ACME Participants to be able to execute transactions
+rule AcmeParticipantPermissionHistorian {
+  description: "can write to the Historian registries"
+  participant: "ANY"
+  operation: CREATE
+  resource: "org.hyperledger.composer.system.HistorianRecord"
   action: ALLOW  
 }
 
+rule AcmeNetworkAdminPermissionAcme {
+  description: "can READ the resource registries"
+  participant: "org.acme.airline.participant.ACMEParticipant"
+  operation: READ
+  resource: "org.acme.airline.**"
+  action: ALLOW
+}
+
+// #3 Rules for ACMEPersonnel
+rule ACMEPersonnelPermission {
+  description: "only ACME personnel can create a flight"
+  participant(p): "org.acme.airline.participant.ACMEPersonnel"
+  operation: CREATE
+  resource(r): "org.acme.airline.flight.*"
+  transaction: "org.acme.airline.flight.CreateFlight"
+  condition: (p.department=='Logistics1')
+  action: ALLOW
+}
