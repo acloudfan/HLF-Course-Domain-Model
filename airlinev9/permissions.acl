@@ -1,3 +1,11 @@
+// This Rule is needed for all Participants
+rule AcmeNetworkAdminPermissionSystem {
+  description: "can READ the system registries"
+  participant: "ANY"
+  operation: READ
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW  
+}
 
 // #1 Allow the 'System Network Admin' to carry out Identities management
 //    and Network operations
@@ -18,36 +26,14 @@ rule ParticipantRegistryControlPermission {
 
 
 
-
-
-
-
-
-
-
-
-
-
-// #2 ACMENetworkAdmin Participant can carry out ALL operations on ACME resources 
+// #2 Exercise Solution
+// ====================
+// UN-COMMENT the RULES To Test
+// ACMENetworkAdmin Participant can carry out
+//    READ operations on ACME resources 
 //    READ the system resources  
-//    "org.acme.airline.participant.ACMENetworkAdmin"
-rule AcmeNetworkAdminPermissionSystem {
-  description: "can READ the system registries"
-  participant: "ANY"
-  operation: READ
-  resource: "org.hyperledger.composer.system.**"
-  action: ALLOW  
-}
-
-// Needed for ACME Participants to be able to execute transactions
-rule AcmeParticipantPermissionHistorian {
-  description: "can write to the Historian registries"
-  participant: "ANY"
-  operation: CREATE
-  resource: "org.hyperledger.composer.system.HistorianRecord"
-  action: ALLOW  
-}
-
+//    Participant: "org.acme.airline.participant.ACMENetworkAdmin"
+/********* Exercise Solution **
 rule AcmeNetworkAdminPermissionAcme {
   description: "can READ the resource registries"
   participant: "org.acme.airline.participant.ACMEParticipant"
@@ -55,14 +41,42 @@ rule AcmeNetworkAdminPermissionAcme {
   resource: "org.acme.airline.**"
   action: ALLOW
 }
-
+***************************/
 // #3 Rules for ACMEPersonnel
+
+// #3.1 Needed for ACME Participants to be able to execute transactions
+rule AcmeParticipantPermissionHistorian {
+  description: "can write to the Historian registries"
+  participant: "org.acme.airline.participant.ACMEPersonnel"
+  operation: CREATE
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}
+
+// #3.2 Needed for Creating the "CreateFlight" transaction
+// Only employees @ ACME can execute this transaction
+rule ACMEPersonnelPermission {
+  description: "only ACME personnel can create a flight"
+  participant: "org.acme.airline.participant.ACMEPersonnel"
+  operation: CREATE
+  resource: "org.acme.airline.flight.*"
+  transaction: "org.acme.airline.flight.CreateFlight"
+  action: ALLOW
+}
+
+
+// #4 Exercise Solution
+// ====================
+// UN-COMMENT the RULE below To Test
+// Comment the 'ACMEPersonnelPermission' rule above
+/**********************
 rule ACMEPersonnelPermission {
   description: "only ACME personnel can create a flight"
   participant(p): "org.acme.airline.participant.ACMEPersonnel"
   operation: CREATE
   resource(r): "org.acme.airline.flight.*"
   transaction: "org.acme.airline.flight.CreateFlight"
-  condition: (p.department=='Logistics1')
+  condition: (p.department=='Logistics')
   action: ALLOW
 }
+***************************/
