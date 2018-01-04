@@ -46,7 +46,7 @@ rule AcmeNetworkAdminPermissionAcme {
 
 // #3.1 Needed for ACME Participants to be able to execute transactions
 rule AcmeParticipantPermissionHistorian {
-  description: "can write to the Historian registries"
+  description: "can write HistorianRecord to the Historian"
   participant: "org.acme.airline.participant.ACMEPersonnel"
   operation: CREATE
   resource: "org.hyperledger.composer.system.HistorianRecord"
@@ -63,6 +63,14 @@ rule ACMEPersonnelPermission {
   transaction: "org.acme.airline.flight.CreateFlight"
   action: ALLOW
 }
+
+
+
+
+
+
+
+
 
 
 // #4 Exercise Solution

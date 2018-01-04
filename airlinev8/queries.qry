@@ -9,12 +9,14 @@
       SELECT  org.acme.airline.flight.Flight
  }
 
- query FlightByNumber {
-   description: "Returns all flights in the registry"
+  query AllFlightsSkipLimit {
+   description: "Limits the number of flights returned"
    statement:  
       SELECT  org.acme.airline.flight.Flight
-  	  WHERE   (flightNumber == _$flight_number)
-  } 
+        LIMIT  _$limit
+          SKIP   _$skip
+ }
+
 
   query FlightsOriginAndDestination {
    description: "Returns all flights in the registry"
@@ -23,10 +25,3 @@
   	  WHERE   (route.origin == _$origin_airport AND route.destination  == _$destination_airport )
   }
 
- query FlightsOriginAndDestinationOrdered {
-   description: "Returns all flights in the registry"
-   statement:  
-      SELECT  org.acme.airline.flight.Flight
-  	  WHERE   (route.origin == _$origin_airport AND route.destination  == _$destination_airport)
-      ORDER BY [flightNumber ASC]
-  } 

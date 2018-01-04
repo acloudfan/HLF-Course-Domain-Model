@@ -28,7 +28,11 @@ composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmi
 # List the identities
 composer identity list -c admin@airlinev8
 
+# Launch REST Server
+composer-rest-server -c admin@airlinev8 -n always -w true
 
+# Update the app
+composer network update -a ./airlinev8@0.0.1.bna -c admin@airlinev8
 
 
 
