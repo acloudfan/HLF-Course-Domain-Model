@@ -1,27 +1,31 @@
-/**
- * All named queries in this file
- **/
+// Returns all flights 
+query AllFlights {
+  description: "Returns all flights in the registry"
+  statement:  
+    SELECT  org.acme.airline.flight.Flight
+}
 
- // Returns all flights 
- query AllFlights {
-   description: "Returns all flights in the registry"
-   statement:  
-      SELECT  org.acme.airline.flight.Flight
- }
+// Uses the Limit and Skip
+query AllFlightsSkipLimit {
+  description: "Limits the number of flights returned"
+  statement:  
+    SELECT  org.acme.airline.flight.Flight
+      LIMIT  _$limit
+        SKIP   _$skip
+}
 
-  query AllFlightsSkipLimit {
-   description: "Limits the number of flights returned"
-   statement:  
-      SELECT  org.acme.airline.flight.Flight
-        LIMIT  _$limit
-          SKIP   _$skip
- }
+// Selects flights based on the origin and destination
+query FlightsOriginAndDestination {
+  description: "Returns all flights in the registry"
+  statement:  
+    SELECT  org.acme.airline.flight.Flight
+      WHERE   (route.origin == _$origin_airport AND route.destination  == _$destination_airport )
+}
 
-
-  query FlightsOriginAndDestination {
-   description: "Returns all flights in the registry"
-   statement:  
-      SELECT  org.acme.airline.flight.Flight
-  	  WHERE   (route.origin == _$origin_airport AND route.destination  == _$destination_airport )
-  }
-
+// Selects flights based on the origin, destination & exact Schedule datetime (yep its not good :)
+query FlightsOnOriginDestinationDate {
+  description: "Returns all flights in the registry"
+  statement:  
+    SELECT  org.acme.airline.flight.Flight
+    WHERE (route.origin == _$origin_airport AND route.destination  == _$destination_airport AND route.schedule == _$date)
+}
