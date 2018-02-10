@@ -1,6 +1,6 @@
 namespace org.acme.airline.flight
 
-import      org.acme.airline.aircraft.Aircraft
+import org.acme.airline.aircraft.Aircraft
 
 asset Flight identified by flightId {
   // Solution to the exercise - try out the Regular expression at http://regex101.com

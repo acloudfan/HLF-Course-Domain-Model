@@ -45,6 +45,7 @@ rule AcmeNetworkAdminPermissionAcme {
 // #3 Rules for ACMEPersonnel
 
 // #3.1 Needed for ACME Participants to be able to execute transactions
+
 rule AcmeParticipantPermissionHistorian {
   description: "can write HistorianRecord to the Historian"
   participant: "org.acme.airline.participant.ACMEPersonnel"
