@@ -65,7 +65,21 @@ rule ACMEPersonnelPermission {
   action: ALLOW
 }
 
-
+// This is an example of recursive access to the resource
+// This rule will work the same way as the one above but
+// It gives the transaction access to both Flight & Aircraft
+// To try it out simply UNCOMMENT statements below & COMMENT 
+// the rule above
+/****
+rule ACMEPersonnelPermission {
+  description: "only ACME personnel can create a flight"
+  participant: "org.acme.airline.participant.ACMEPersonnel"
+  operation: CREATE
+  resource: "org.acme.airline.**"
+  transaction: "org.acme.airline.flight.CreateFlight"
+  action: ALLOW
+}
+****/
 
 
 
