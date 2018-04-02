@@ -8,15 +8,22 @@ Refer to lecture on Transactions & Events
 composer archive create  --sourceType dir --sourceName ../
 
 # Setup the network
+composer network install -a .\airlinev8@0.0.1.bna -c PeerAdmin@hlfv1
 
-composer network start -a .\airlinev8@0.0.1.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
-composer network deploy -a ./airlinev8@0.0.1.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
+composer network start -c PeerAdmin@hlfv1 -n airlinev8 -V 0.0.1  -A admin -S adminpw
 
-# Import the card
+# Import the newly generated card
 composer card import -f admin@airlinev8.card
 
-# Update the Network
-composer network update -a ./airlinev8@0.0.1.bna -c admin@airlinev8
+# Check health of BNA
+composer network ping -c admin@airlinev8
+composer network list -c admin@airlinev8
+
+# To upgrade
+1. Create a new archive file - do not forget to change version in package.json e.g., 0.0.2
+2. composer network install -a .\airlinev8@0.0.2.bna -c PeerAdmin@hlfv1
+3. compose network upgrade -c admin@airlinev8 -V 0.0.2
+
 
 # Add a new participant
 https://hyperledger.github.io/composer/managing/participant-add.html
@@ -35,17 +42,8 @@ composer-rest-server -c admin@airlinev8 -n always -w true
 # Update the app
 composer network update -a ./airlinev8@0.0.1.bna -c admin@airlinev8
 
-# Undeploy
-composer network undeploy  -c admin@airlinev8 
-
-# Reset
-composer network reset -c PeerAdmin@hlfv1
-
 # Ping 
 composer network ping -c admin@airlinev8
-
-
-
 
 
 
