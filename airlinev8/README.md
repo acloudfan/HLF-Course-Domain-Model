@@ -7,10 +7,18 @@ Refer to lecture on Transactions & Events
 # Create the archive
 composer archive create  --sourceType dir --sourceName ../
 
+<<<<<<< HEAD
 # Setup the network
 composer network install -a .\airlinev8@0.0.1.bna -c PeerAdmin@hlfv1
 
 composer network start -c PeerAdmin@hlfv1 -n airlinev8 -V 0.0.1  -A admin -S adminpw
+=======
+# deploy the network
+composer network deploy -a ./airlinev8@0.0.1.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
+
+# use start  if you are using composer runtime install
+composer network start -a .\airlinev8@0.0.1.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
+>>>>>>> 0a489df461e6aa7690dc60bbb3406d2c6e7b09d6
 
 # Import the newly generated card
 composer card import -f admin@airlinev8.card
