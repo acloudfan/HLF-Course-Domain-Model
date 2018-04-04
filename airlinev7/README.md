@@ -4,13 +4,14 @@
 
 Refer to lecture on Transactions & Events
 
+# Change the directory to airlinev7 dist subfolder
 cd dist
-composer archive create  --sourceType dir --sourceName ../
+
 # Create the archive
 composer archive create  --sourceType dir --sourceName ../
 
 # Install the BNA
-composer network install -a .\airlinev7@0.0.1.bna -c 
+composer network install -a .\airlinev7@0.0.1.bna -c PeerAdmin@hlfv1
 
 # Start the BNA
 composer network start -c PeerAdmin@hlfv1 -n airlinev7 -V 0.0.1 -A admin -S adminpw
