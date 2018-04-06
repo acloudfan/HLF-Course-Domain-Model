@@ -40,8 +40,9 @@ composer identity list -c admin@airlinev8
 # Launch REST Server
 composer-rest-server -c admin@airlinev8 -n always -w true
 
-# Update the app
-composer network update -a ./airlinev8@0.0.1.bna -c admin@airlinev8
+# Upgrade the app
++ Install the new version of BNA
+composer network update -n airlinev8 -c PeerAdmin@hlfv1 -V 0.0.2
 
 # Ping 
 composer network ping -c admin@airlinev8
