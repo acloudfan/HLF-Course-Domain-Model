@@ -1,8 +1,11 @@
 # Create the archive
 composer archive create  --sourceType dir --sourceName ../ -a archive.bna
 
-# Deploy the archive
-composer network deploy -a .\archive.bna -c PeerAdmin@hlfv1 -A admin -S adminpw
+# Install the archive
+composer network install -a ./archive.bna -c PeerAdmin@hlfv
+
+# Strart the network
+composer network start -n airlinev8 -c PeerAdmin@hlfv1 -V 0.0.1 -A admin -S adminpw
 
 # Use the card generated
 composer card import -f admin@airlinev8.card
