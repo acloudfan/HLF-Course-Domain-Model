@@ -60,3 +60,28 @@ composer network update -a ./airlinev9@0.0.1.bna -c admin@airlinev9
 
 
 composer-rest-server -c johnd@airlinev9 -n always -w true
+
+Solutions
+=========
+// Returns all aircrafts
+query AllAircrafts {
+ description: "Returns all aircrafts in the registry"
+ statement:
+ SELECT org.acme.airline.aircraft.Aircraft
+}
+ 
+// Return aicrafts with specific ownership types
+query AircraftWithOwnershipTypes {
+ description: "Returns all aircrafts with specific ownership type"
+ statement:
+ SELECT org.acme.airline.aircraft.Aircraft
+ WHERE (ownershipType == _$ownership_type)
+}
+ 
+// Return aircrafts with specific number of seats
+query AircraftWithSeats {
+ description: "Returns aircrafts with specific number of seats"
+ statement:
+ SELECT org.acme.airline.aircraft.Aircraft
+ WHERE (firstClassSeats >= _$x AND businessClassSeats >= _$x AND economyClassSeats >= _$x)
+}
