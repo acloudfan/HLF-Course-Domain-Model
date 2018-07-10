@@ -5,7 +5,7 @@ import      org.acme.airline.aircraft.Aircraft
 asset Flight identified by flightId {
   // Solution to the exercise - try out the Regular expression at http://regex101.com
   // Share your optimized regular expression with others :) 
-  o   String            flightId regex=/[A-Z][A-Z]-[0-9][0-9][0-9]-[0-9][0-9]-[0-3][0-9]-[0-9][0-9]/
+  o   String            flightId regex=/[A-Z][A-Z][0-9][0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])-[0-9][0-9]/
   o   String            flightNumber
   o   Route             route
   o   String[]          aliasFlightNumber
