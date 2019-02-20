@@ -56,7 +56,11 @@ composer card import -f wills@airlinev9.card
 composer archive create  --sourceType dir --sourceName ../
 
 #8 Update the Network
+composer network upgrade -n <business-network-name> -V <business-network-version> -c <business-network-card>
+    
 composer network update -a ./airlinev9@0.0.1.bna -c admin@airlinev9
+
+
 
 
 composer-rest-server -c johnd@airlinev9 -n always -w true
